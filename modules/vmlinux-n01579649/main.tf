@@ -9,9 +9,9 @@ resource "azurerm_availability_set" "n01579649-vmlinux-avs" {
     resource_group_name   = var.rg-info.name
     location              = var.rg-info.location
 
-    for_each              = local.instances
+    # for_each              = local.instances
 
-    name = "${var.n01579649-vmlinux-info.name}-avs-${each.key}"
+    name = "${var.n01579649-vmlinux-info.name}-avs"
 
     platform_fault_domain_count = var.n01579649-vmlinux-avs-info.platform_fault_domain_count
     platform_update_domain_count = var.n01579649-vmlinux-avs-info.platform_update_domain_count
@@ -55,9 +55,9 @@ resource "azurerm_linux_virtual_machine" "n01579649-vmlinux" {
 
     for_each              = local.instances
 
-  name                  = "${var.n01579649-vmlinux-info.name}-${each.value}"
+  name                  = "${var.n01579649-vmlinux-info.name}-${each.key}"
 
-  computer_name  = "linux-${each.value}"
+  computer_name  = "${each.value}"
   size = var.n01579649-vmlinux-info.size
   admin_username = var.n01579649-vmlinux-info.admin_ssh_key.admin_username
   
@@ -67,7 +67,7 @@ resource "azurerm_linux_virtual_machine" "n01579649-vmlinux" {
   }
 
 
-  availability_set_id   = azurerm_availability_set.n01579649-vmlinux-avs[each.key].id
+  availability_set_id   = azurerm_availability_set.n01579649-vmlinux-avs.id
   
   network_interface_ids = [azurerm_network_interface.n01579649-nic[each.key].id]
 
@@ -79,7 +79,7 @@ resource "azurerm_linux_virtual_machine" "n01579649-vmlinux" {
   }
 
   os_disk {
-    name              = "${var.n01579649-vmlinux-info.name}-osdisk-${each.value}"
+    name              = "${var.n01579649-vmlinux-info.name}-osdisk-${each.key}"
     storage_account_type = var.n01579649-vmlinux-info.os_disk.storage_account_type
     disk_size_gb = var.n01579649-vmlinux-info.os_disk.disk_size_gb
     caching           = var.n01579649-vmlinux-info.os_disk.caching
@@ -110,7 +110,7 @@ resource "azurerm_virtual_machine_extension" "n01579649-vmlinux-network-watcher"
 resource "azurerm_virtual_machine_extension" "n01579649-vmlinux-network-monitor" {
   for_each                = local.instances
 
-  name                    = "${var.n01579649-vmlinux-info.name}-azuremonitor-${each.value}"
+  name                    = "${var.n01579649-vmlinux-info.name}-azuremonitor-${each.key}"
   virtual_machine_id      = azurerm_linux_virtual_machine.n01579649-vmlinux[each.key].id
 
   publisher               = var.n01579649-vmlinux-network-monitor.publisher

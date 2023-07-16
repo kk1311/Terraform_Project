@@ -58,3 +58,8 @@ output "n01579649-vmwindows-private-ip" {
 output "n01579649-vmwindows-public-ip" {
     value = module.vmwindows-n01579649.n01579649-vmwindows-public-ip
 }
+
+# loadbalancer
+output "n01579649-loadbalancer-name" {
+    value = module.loadbalancer-n01579649.n01579649-loadbalancer-name
+}

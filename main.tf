@@ -199,6 +199,7 @@ module "vmwindows-n01579649" {
   }
 }
 
+# Datadisks for VMs
 module "datadisk-n01579649" {
   source = "./modules/datadisk-n01579649"
 
@@ -233,5 +234,32 @@ module "datadisk-n01579649" {
     virtual_machine_ids = module.vmwindows-n01579649.n01579649-vmwindows.ids
     lun = "0"
     caching = "ReadWrite"
+  }
+}
+
+# 
+module "loadbalancer-n01579649" {
+  source = "./modules/loadbalancer-n01579649"
+
+  rg-info = {
+    name     = module.rgroup-n01579649.rg-n01579649-info.name
+    location = module.rgroup-n01579649.rg-n01579649-info.location
+  }
+
+  n01579649-loadbalancer-name = "n01579649-loadbalancer" 
+  allocation_method = "Dynamic"
+
+  n01579649-loadbalancer-nic-backend_pool_association-info = {
+    count = 3
+    hostnames = module.vmlinux-n01579649.n01579649-vmlinux.hostnames
+    nic_ids = module.vmlinux-n01579649.nic_id
+  }
+
+  n01579649-loadbalancer-rules = {
+    name = "n01579649-loadbalancer-rules"
+    protocol                       = "Tcp"
+    frontend_port                  = "22"
+    backend_port                   = "22"
+    frontend_ip_configuration_name = "PublicIPAddress"
   }
 }
