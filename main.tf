@@ -198,3 +198,40 @@ module "vmwindows-n01579649" {
     SETTINGS
   }
 }
+
+module "datadisk-n01579649" {
+  source = "./modules/datadisk-n01579649"
+
+  rg-info = {
+    name     = module.rgroup-n01579649.rg-n01579649-info.name
+    location = module.rgroup-n01579649.rg-n01579649-info.location
+  }
+
+  n01579649-vmlinux-datadisk-info = {
+    n01579649-vmlinux-names = module.vmlinux-n01579649.n01579649-vmlinux.hostnames
+    total-vms = 3
+    storage_account_type = "Standard_LRS"
+    create_option = "Empty"
+    disk_size_gb = 10
+  }
+
+  n01579649-vmlinux-datadisk-attachment-info = {
+    virtual_machine_ids = module.vmlinux-n01579649.n01579649-vmlinux.ids
+    lun = "0"
+    caching = "ReadWrite"
+  }
+
+  n01579649-vmwindows-datadisk-info = {
+    n01579649-vmwindows-names = module.vmwindows-n01579649.n01579649-vmwindows.hostnames
+    total-vms = 1
+    storage_account_type = "Standard_LRS"
+    create_option = "Empty"
+    disk_size_gb = 10
+  }
+
+  n01579649-vmwindows-datadisk-attachment-info = {
+    virtual_machine_ids = module.vmwindows-n01579649.n01579649-vmwindows.ids
+    lun = "0"
+    caching = "ReadWrite"
+  }
+}

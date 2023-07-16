@@ -1,5 +1,8 @@
-output "n01579649-vmwindows-hostname" {
-    value = azurerm_windows_virtual_machine.n01579649-vmwindows[*].name
+output "n01579649-vmwindows" {
+    value = {
+        ids = azurerm_windows_virtual_machine.n01579649-vmwindows[*].id
+        hostnames = azurerm_windows_virtual_machine.n01579649-vmwindows[*].name
+        }
 }
 
 output "n01579649-vmwindows-FQDN" {

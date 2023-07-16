@@ -1,5 +1,8 @@
-output "n01579649-vmlinux-hostname" {
-    value = values(azurerm_linux_virtual_machine.n01579649-vmlinux)[*].name
+output "n01579649-vmlinux" {
+    value = {
+        ids = values(azurerm_linux_virtual_machine.n01579649-vmlinux)[*].id
+        hostnames = values(azurerm_linux_virtual_machine.n01579649-vmlinux)[*].name
+        }
 }
 
 output "n01579649-vmlinux-FQDN" {

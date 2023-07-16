@@ -27,7 +27,7 @@ output "storage_account-name" {
 
 # Virtual Machine: Linux resources
 output "n01579649-vmlinux-hostname" {
-  value = module.vmlinux-n01579649.n01579649-vmlinux-hostname
+  value = module.vmlinux-n01579649.n01579649-vmlinux
 }
 
 output "n01579649-vmlinux-FQDN" {
@@ -44,7 +44,7 @@ output "n01579649-vmlinux-public-ip" {
 
 # Virtual Machine: Windows resources
 output "n01579649-vmwindows-hostname" {
-    value = module.vmwindows-n01579649.n01579649-vmwindows-hostname
+    value = module.vmwindows-n01579649.n01579649-vmwindows
 }
 
 output "n01579649-vmwindows-FQDN" {
