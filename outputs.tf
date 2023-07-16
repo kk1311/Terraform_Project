@@ -41,3 +41,20 @@ output "n01579649-vmlinux-private-ip" {
 output "n01579649-vmlinux-public-ip" {
   value = module.vmlinux-n01579649.n01579649-vmlinux-public-ip
 }
+
+# Virtual Machine: Windows resources
+output "n01579649-vmwindows-hostname" {
+    value = module.vmwindows-n01579649.n01579649-vmwindows-hostname
+}
+
+output "n01579649-vmwindows-FQDN" {
+    value = module.vmwindows-n01579649.n01579649-vmwindows-FQDN
+}
+
+output "n01579649-vmwindows-private-ip" {
+    value = module.vmwindows-n01579649.n01579649-vmwindows-private-ip
+}
+
+output "n01579649-vmwindows-public-ip" {
+    value = module.vmwindows-n01579649.n01579649-vmwindows-public-ip
+}

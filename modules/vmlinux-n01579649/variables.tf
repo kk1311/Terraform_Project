@@ -1,11 +1,11 @@
 variable "rg-info" {
     type = map(string)
-    description = "Contains information about the resource group"
+    description = "Contains information about the resource group for linux machine"
 }
 
 variable "instance_count" {
     type = number
-    description = "Total number of VMs" 
+    description = "Total number of Linux VMs" 
 }
 
 variable "n01579649-vmlinux-info" {

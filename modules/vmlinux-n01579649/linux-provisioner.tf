@@ -2,7 +2,7 @@ resource "null_resource" "vmlinux-n01579649-provisioner-linux" {
     for_each = local.instances
 
     provisioner "remote-exec" {
-        inline = [ "echo 'Hostname: $(hostname)'" ]
+        inline = [ "echo Hostname: $(hostname)" ]
     }
 
     connection {

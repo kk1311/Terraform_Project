@@ -1,3 +1,4 @@
+# Resource group module
 module "rgroup-n01579649" {
   source = "./modules/rgroup-n01579649"
 
@@ -7,6 +8,7 @@ module "rgroup-n01579649" {
   }
 }
 
+# Network module
 module "network-n01579649" {
   source = "./modules/network-n01579649"
 
@@ -50,6 +52,7 @@ module "common-n01579649" {
   }
 }
 
+# Linux VM module
 module "vmlinux-n01579649" {
   source = "./modules/vmlinux-n01579649"
 
@@ -127,5 +130,71 @@ module "vmlinux-n01579649" {
       {}
   SETTINGS
 
+  }
+}
+
+
+# Windows VM module
+module "vmwindows-n01579649" {
+  source = "./modules/vmwindows-n01579649"
+
+  rg-info = {
+    name     = module.rgroup-n01579649.rg-n01579649-info.name
+    location = module.rgroup-n01579649.rg-n01579649-info.location
+  }
+
+  instance_count = 1
+
+  n01579649-vmwindows-info = {
+    name          = "n9649-win"
+    computer_name = "n01579649"
+    size          = "Standard_B1s"
+    admin_username = "n01579649-nisarg"
+    admin_password = "C:\\Users\\Nisarg Mahyavanshi\\automation\\terraform\\lab02s3\\vm_ssh_key\\id_rsa"
+
+    winrm_listener_protocol = "Http"
+
+    storage_account_uri = module.common-n01579649.storage_account-primary_blob_endpoint
+
+    os_disk = {
+      storage_account_type = "StandardSSD_LRS"
+      disk_size_gb         = "128"
+      caching              = "ReadWrite"
+    }
+
+    source_image_reference = {
+      publisher = "MicrosoftWindowsServer"
+      offer     = "WindowsServer"
+      sku       = "2016-Datacenter"
+      version   = "latest"
+    }
+  }
+
+  n01579649-vmwindows-avs-info = {
+    platform_update_domain_count = 1
+    platform_fault_domain_count  = 1
+  }
+
+  n01579649-vmwindows-nic = {
+    ip_configuration = {
+      subnet_id                     = module.network-n01579649.n01579649-SUBNET.id
+      private_ip_address_allocation = "Dynamic"
+    }
+  }
+
+  n01579649-vmwindows-pip = {
+    allocation_method       = "Dynamic"
+    idle_timeout_in_minutes = 30
+  }
+
+  n01579649-vmwindows-antimalware = {
+    publisher                  = "Microsoft.Azure.Security"
+    type                       = "IaaSAntimalware"
+    type_handler_version       = "1.3"
+    auto_upgrade_minor_version = "true"
+
+    settings = <<SETTINGS
+        {}
+    SETTINGS
   }
 }
