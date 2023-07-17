@@ -1,3 +1,8 @@
+variable "tags" {
+    typtype = map(string)
+    description = "Contains local tags"  
+}
+
 variable "VNET-n01579649-info" {
     type = map(string)
     description = "Information about the virtual network"

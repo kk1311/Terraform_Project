@@ -3,6 +3,7 @@ resource "azurerm_virtual_network" "n01579649-VNET" {
     resource_group_name = var.VNET-n01579649-info.resource_group_name
     location = var.VNET-n01579649-info.location
     address_space = var.VNET-n01579649-address_space
+    tags = var.tags
 }
 
 resource "azurerm_subnet" "n01579649-SUBNET" {
@@ -10,6 +11,7 @@ resource "azurerm_subnet" "n01579649-SUBNET" {
     resource_group_name = var.VNET-n01579649-info.resource_group_name
     virtual_network_name = azurerm_virtual_network.n01579649-VNET.name
     address_prefixes = var.SUBNET-n01579649-address_prefixes
+    tags = var.tags
 }
 
 resource "azurerm_network_security_group" "n01579649-NET-SG" {
@@ -64,9 +66,11 @@ resource "azurerm_network_security_group" "n01579649-NET-SG" {
         source_address_prefix = "*"
         destination_address_prefix = "*"
     }
+    tags = var.tags
 }
 
 resource "azurerm_subnet_network_security_group_association" "name" {
     subnet_id = azurerm_subnet.n01579649-SUBNET.id
     network_security_group_id = azurerm_network_security_group.n01579649-NET-SG.id
+    tags = var.tags
 }

@@ -9,6 +9,8 @@ resource "azurerm_managed_disk" "n01579649-vmlinux-datadisk" {
     storage_account_type = var.n01579649-vmlinux-datadisk-info.storage_account_type
     create_option = var.n01579649-vmlinux-datadisk-info.create_option
     disk_size_gb = var.n01579649-vmlinux-datadisk-info.disk_size_gb
+
+    tags = var.tags
 }
 
 resource "azurerm_virtual_machine_data_disk_attachment" "n01579649-vmlinux-datadisk-attachment" {
@@ -19,6 +21,8 @@ resource "azurerm_virtual_machine_data_disk_attachment" "n01579649-vmlinux-datad
     caching = var.n01579649-vmlinux-datadisk-attachment-info.caching
 
     depends_on = [ azurerm_managed_disk.n01579649-vmlinux-datadisk ]
+
+    tags = var.tags
 }
 
 # Data-disk for Windows VMs
@@ -33,6 +37,7 @@ resource "azurerm_managed_disk" "n01579649-vmwindows-datadisk" {
     storage_account_type = var.n01579649-vmwindows-datadisk-info.storage_account_type
     create_option = var.n01579649-vmwindows-datadisk-info.create_option
     disk_size_gb = var.n01579649-vmwindows-datadisk-info.disk_size_gb
+    tags = var.tags
 }
 
 resource "azurerm_virtual_machine_data_disk_attachment" "n01579649-vmwindows-datadisk-attachment" {
@@ -43,4 +48,5 @@ resource "azurerm_virtual_machine_data_disk_attachment" "n01579649-vmwindows-dat
     caching = var.n01579649-vmwindows-datadisk-attachment-info.caching
 
     depends_on = [ azurerm_managed_disk.n01579649-vmwindows-datadisk ]
+    tags = var.tags
 }

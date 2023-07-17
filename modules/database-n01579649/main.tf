@@ -16,6 +16,8 @@ resource "azurerm_postgresql_server" "n01579649-database-server" {
   administrator_login_password = var.n01579649-database-server-info.administrator_login_password
   version                      = var.n01579649-database-server-info.version
   ssl_enforcement_enabled      = var.n01579649-database-server-info.ssl_enforcement_enabled
+
+  tags = var.tags
 }
 
 resource "azurerm_postgresql_database" "n01579649-database" {  
@@ -26,4 +28,6 @@ resource "azurerm_postgresql_database" "n01579649-database" {
 
   charset             = var.n01579649-database-info.charset
   collation           = var.n01579649-database-info.collation
+
+  tags = var.tags
 }

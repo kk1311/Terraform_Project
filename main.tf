@@ -1,6 +1,19 @@
+# Common Local block for all modules
+locals {
+  assignment01_tags = {
+    Assignment = "CCGC 5502 Automation Assignment"
+    Name = "Nisargkumar.Mahyavanshi"
+    ExpirationDate = "2024-12-31"
+    Environment = "Learning"
+  }
+}
+
+
 # Resource group module
 module "rgroup-n01579649" {
   source = "./modules/rgroup-n01579649"
+
+  tags = local.assignment01_tags
 
   rg-n01579649-info = {
     name     = "n01579649-RG"
@@ -11,6 +24,8 @@ module "rgroup-n01579649" {
 # Network module
 module "network-n01579649" {
   source = "./modules/network-n01579649"
+
+  tags = local.assignment01_tags
 
   VNET-n01579649-info = {
     name                = "n01579649-VNET"
@@ -27,6 +42,8 @@ module "network-n01579649" {
 
 module "common-n01579649" {
   source = "./modules/common-n01579649"
+
+  tags = local.assignment01_tags
 
   rg-info = {
     name     = module.rgroup-n01579649.rg-n01579649-info.name
@@ -55,6 +72,8 @@ module "common-n01579649" {
 # Linux VM module
 module "vmlinux-n01579649" {
   source = "./modules/vmlinux-n01579649"
+
+  tags = local.assignment01_tags
 
   rg-info = {
     name     = module.rgroup-n01579649.rg-n01579649-info.name
@@ -138,6 +157,8 @@ module "vmlinux-n01579649" {
 module "vmwindows-n01579649" {
   source = "./modules/vmwindows-n01579649"
 
+  tags = local.assignment01_tags
+
   rg-info = {
     name     = module.rgroup-n01579649.rg-n01579649-info.name
     location = module.rgroup-n01579649.rg-n01579649-info.location
@@ -203,6 +224,8 @@ module "vmwindows-n01579649" {
 module "datadisk-n01579649" {
   source = "./modules/datadisk-n01579649"
 
+  tags = local.assignment01_tags
+
   rg-info = {
     name     = module.rgroup-n01579649.rg-n01579649-info.name
     location = module.rgroup-n01579649.rg-n01579649-info.location
@@ -241,6 +264,8 @@ module "datadisk-n01579649" {
 module "loadbalancer-n01579649" {
   source = "./modules/loadbalancer-n01579649"
 
+  tags = local.assignment01_tags
+
   rg-info = {
     name     = module.rgroup-n01579649.rg-n01579649-info.name
     location = module.rgroup-n01579649.rg-n01579649-info.location
@@ -267,6 +292,8 @@ module "loadbalancer-n01579649" {
 # Database module
 module "database-n01579649" {
   source = "./modules/database-n01579649"
+
+  tags = local.assignment01_tags
 
   rg-info = {
     name     = module.rgroup-n01579649.rg-n01579649-info.name

@@ -15,6 +15,8 @@ resource "azurerm_availability_set" "n01579649-vmlinux-avs" {
 
     platform_fault_domain_count = var.n01579649-vmlinux-avs-info.platform_fault_domain_count
     platform_update_domain_count = var.n01579649-vmlinux-avs-info.platform_update_domain_count
+
+    tags = var.tags
 }
 
 resource "azurerm_public_ip" "n01579649-pip" {
@@ -30,6 +32,8 @@ resource "azurerm_public_ip" "n01579649-pip" {
     domain_name_label = "${var.n01579649-vmlinux-info.name}${each.key}"
 
     idle_timeout_in_minutes = var.n01579649-vmlinux-pip.idle_timeout_in_minutes
+
+    tags = var.tags
 }
 
 resource "azurerm_network_interface" "n01579649-nic" {
@@ -47,6 +51,7 @@ resource "azurerm_network_interface" "n01579649-nic" {
       public_ip_address_id = azurerm_public_ip.n01579649-pip[each.key].id
     }
 
+    tags = var.tags
 }
 
 resource "azurerm_linux_virtual_machine" "n01579649-vmlinux" {
@@ -91,6 +96,7 @@ resource "azurerm_linux_virtual_machine" "n01579649-vmlinux" {
 
     depends_on = [ azurerm_availability_set.n01579649-vmlinux-avs ]
 
+    tags = var.tags
 }
 
 resource "azurerm_virtual_machine_extension" "n01579649-vmlinux-network-watcher" {
@@ -105,6 +111,8 @@ resource "azurerm_virtual_machine_extension" "n01579649-vmlinux-network-watcher"
     auto_upgrade_minor_version = var.n01579649-vmlinux-network-watcher.auto_upgrade_minor_version
 
     settings = var.n01579649-vmlinux-network-watcher.settings
+
+    tags = var.tags
 }
 
 resource "azurerm_virtual_machine_extension" "n01579649-vmlinux-network-monitor" {
@@ -119,4 +127,6 @@ resource "azurerm_virtual_machine_extension" "n01579649-vmlinux-network-monitor"
   auto_upgrade_minor_version = var.n01579649-vmlinux-network-monitor.auto_upgrade_minor_version
 
   settings = var.n01579649-vmlinux-network-monitor.settings
+
+  tags = var.tags
 }

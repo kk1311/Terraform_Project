@@ -8,6 +8,8 @@ resource "azurerm_availability_set" "n01579649-vmwindows-avs" {
 
     platform_update_domain_count = var.n01579649-vmwindows-avs-info.platform_update_domain_count
     platform_fault_domain_count = var.n01579649-vmwindows-avs-info.platform_fault_domain_count
+
+    tags = var.tags
 }
 
 resource "azurerm_public_ip" "n01579649-vmwindows-pip" {
@@ -21,6 +23,8 @@ resource "azurerm_public_ip" "n01579649-vmwindows-pip" {
     domain_name_label = "${var.n01579649-vmwindows-info.name}${format("%d", count.index+1)}"
 
     idle_timeout_in_minutes = var.n01579649-vmwindows-pip.idle_timeout_in_minutes
+
+    tags = var.tags
 }
 
 resource "azurerm_network_interface" "n01579649-vmwindows-nic" {
@@ -37,6 +41,8 @@ resource "azurerm_network_interface" "n01579649-vmwindows-nic" {
       private_ip_address_allocation = var.n01579649-vmwindows-nic.ip_configuration.private_ip_address_allocation
       public_ip_address_id = azurerm_public_ip.n01579649-vmwindows-pip[count.index].id
     }
+
+    tags = var.tags
 }
 
 resource "azurerm_windows_virtual_machine" "n01579649-vmwindows" {
@@ -76,6 +82,8 @@ resource "azurerm_windows_virtual_machine" "n01579649-vmwindows" {
     network_interface_ids = [azurerm_network_interface.n01579649-vmwindows-nic[count.index].id]
 
     depends_on = [ azurerm_availability_set.n01579649-vmwindows-avs ]
+
+    tags = var.tags
 }
 
 resource "azurerm_virtual_machine_extension" "n01579649-vmwindows-antimalware" {
@@ -106,4 +114,6 @@ resource "azurerm_virtual_machine_extension" "n01579649-vmwindows-antimalware" {
                 }
         }
     SETTINGS
+
+    tags = var.tags
 }
