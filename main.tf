@@ -237,7 +237,7 @@ module "datadisk-n01579649" {
   }
 }
 
-# 
+# Loadbalancer module
 module "loadbalancer-n01579649" {
   source = "./modules/loadbalancer-n01579649"
 
@@ -261,5 +261,35 @@ module "loadbalancer-n01579649" {
     frontend_port                  = "22"
     backend_port                   = "22"
     frontend_ip_configuration_name = "PublicIPAddress"
+  }
+}
+
+# Database module
+module "database-n01579649" {
+  source = "./modules/database-n01579649"
+
+  rg-info = {
+    name     = module.rgroup-n01579649.rg-n01579649-info.name
+    location = module.rgroup-n01579649.rg-n01579649-info.location
+  }
+
+  n01579649-database-server-info = {
+    sku_name = "B_Gen5_2"
+
+    storage_mb                   = "5120"
+    backup_retention_days        = "7"
+    geo_redundant_backup_enabled = "false"
+    auto_grow_enabled            = "true"
+
+    administrator_login          = "psqladmin"
+    administrator_login_password = "n01579649PSQL@"
+    version                      = "9.5"
+    ssl_enforcement_enabled      = "true"
+  }
+
+  n01579649-database-info = {
+    name = "n01579649-database"
+    charset             = "UTF8"
+    collation           = "English_United States.1252"
   }
 }

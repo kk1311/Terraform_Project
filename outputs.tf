@@ -63,3 +63,8 @@ output "n01579649-vmwindows-public-ip" {
 output "n01579649-loadbalancer-name" {
     value = module.loadbalancer-n01579649.n01579649-loadbalancer-name
 }
+
+# Database
+output "n01579649-database" {
+  value = module.database-n01579649.n01579649-database-name
+}
