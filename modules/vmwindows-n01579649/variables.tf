@@ -1,5 +1,5 @@
 variable "tags" {
-    typtype = map(string)
+    type = map(string)
     description = "Contains local tags"  
 }
 

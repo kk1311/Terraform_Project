@@ -21,8 +21,6 @@ resource "azurerm_virtual_machine_data_disk_attachment" "n01579649-vmlinux-datad
     caching = var.n01579649-vmlinux-datadisk-attachment-info.caching
 
     depends_on = [ azurerm_managed_disk.n01579649-vmlinux-datadisk ]
-
-    tags = var.tags
 }
 
 # Data-disk for Windows VMs
@@ -48,5 +46,4 @@ resource "azurerm_virtual_machine_data_disk_attachment" "n01579649-vmwindows-dat
     caching = var.n01579649-vmwindows-datadisk-attachment-info.caching
 
     depends_on = [ azurerm_managed_disk.n01579649-vmwindows-datadisk ]
-    tags = var.tags
 }

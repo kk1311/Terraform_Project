@@ -40,6 +40,7 @@ module "network-n01579649" {
   SUBNET-n01579649-address_prefixes = ["10.0.0.0/24"]
 }
 
+# Common module
 module "common-n01579649" {
   source = "./modules/common-n01579649"
 
@@ -292,8 +293,6 @@ module "loadbalancer-n01579649" {
 # Database module
 module "database-n01579649" {
   source = "./modules/database-n01579649"
-
-  tags = local.assignment01_tags
 
   rg-info = {
     name     = module.rgroup-n01579649.rg-n01579649-info.name

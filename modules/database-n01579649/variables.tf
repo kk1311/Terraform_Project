@@ -1,8 +1,3 @@
-variable "tags" {
-    typtype = map(string)
-    description = "Contains local tags"  
-}
-
 variable "rg-info" {
     type = map(string)
     description = "Contains information about the resources"
