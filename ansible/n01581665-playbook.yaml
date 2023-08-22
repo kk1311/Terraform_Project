@@ -1,0 +1,11 @@
+---
+- name: Playbook for Package Management and Patching
+  hosts: linux
+  become: true
+  
+  roles:
+    - role: /mnt/d/Projects/Terraform_humber_project/Tearraform_project_n01581665/ansible/roles/datadisk-n01581665
+    - role: /mnt/d/Projects/Terraform_humber_project/Tearraform_project_n01581665/ansible/roles/profile-n01581665
+    - role: /mnt/d/Projects/Terraform_humber_project/Tearraform_project_n01581665/ansible/roles/user-n01581665
+    - role: /mnt/d/Projects/Terraform_humber_project/Tearraform_project_n01581665/ansible/roles/webserver-n01581665
+
